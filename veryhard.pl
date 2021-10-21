@@ -22,21 +22,21 @@ solve(T) :-
           [1400, C4, S4, M4],
           [1500, C5, S5, M5],
           [1600, C6, S6, M6]
-          ],
-    stones(Stones), permutation([S1, S2, S3, S4, S5, S6], Stones),
+          ], 
     customers(Customers), permutation([C1, C2, C3, C4, C5, C6], Customers),
+    clue7(T), % C _ _
     metals(Metals), permutation([M1, M2, M3, M4, M5, M6], Metals),
-    clue1(T),
-    clue2(T),
-    clue3(T),
-    clue4(T),
-    clue5(T),
-    clue7(T),
-    clue6(T),
-    clue8(T), 
-    clue9(T),
-    clue10(T),
-    clue11(T).
+    clue1(T), % C _ M
+    clue8(T), % C _ M
+    clue10(T), % C _ M
+    stones(Stones), permutation([S1, S2, S3, S4, S5, S6], Stones),
+    clue11(T), % _ S _
+    clue4(T), % _ S M
+    clue5(T), % _ S M
+    clue2(T), % C S _
+    clue9(T), % C S M
+    clue3(T), % C S M
+	clue6(T). % P C S M
 
 clue1(T) :-
 	member([C1, _, _, 'Platinum'], T),
@@ -47,10 +47,10 @@ clue2(T) :-
 	member([_, 'Rebecca', 'Topaz', _], T).
 
 clue3(T) :-
-	member([1500, _, 'Topaz', _], T),
-	member([_, 'Becky', _, 'Silver'], T);
-	member([1500, _, _, 'Silver'], T);
-	member([_, 'Becky', 'Topaz', _], T).
+	(member([1500, _, 'Topaz', _], T),
+	member([_, 'Becky', _, 'Silver'], T));
+	(member([1500, _, _, 'Silver'], T),
+	member([_, 'Becky', 'Topaz', _], T)).
 
 clue4(T) :- 
 	member([_, _, S, '24k gold'], T),
